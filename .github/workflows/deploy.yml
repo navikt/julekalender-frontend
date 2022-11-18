@@ -66,4 +66,3 @@ jobs:
         uses: nais/deploy/actions/deploy@v1
         env:
           CLUSTER: labs-gcp
-          VAR: ingress=https://jul.labs.nais.io/

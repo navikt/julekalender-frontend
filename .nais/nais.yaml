@@ -9,4 +9,4 @@ spec:
   image: {{ image }}
   port: 3000
   ingresses:
-    - {{ ingress }}
+    - "https://jul.labs.nais.io/"
