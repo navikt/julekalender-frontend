@@ -56,7 +56,6 @@ export default function Home() {
 
 
     const commitState = () => {
-        // post state to backend
         save("board-1", JSON.stringify(boardState))
         setCommittedState(boardState)
     }
