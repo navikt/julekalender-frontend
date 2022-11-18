@@ -9,5 +9,5 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-  presets: [require("@navikt/ds-tailwind"), require("@tailwindcss/forms")]
+  presets: [require("@tailwindcss/forms"), require("@navikt/ds-tailwind")]
 }

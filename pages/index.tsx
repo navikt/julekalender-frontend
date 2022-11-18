@@ -66,7 +66,7 @@ export default function Home() {
 
     return (<div className="flex flex-col max-w-2xl gap-4 pb-48 p-4">
         <h1 className="text-3xl">Aktivitetskalender (1. desember - 8. desember)</h1>
-        <p className="text-gray-300 p-2 border-l-2">
+        <p className="text-text-muted p-2 border-l-2">
             Det er flere oppgaver her enn det er dager i perioden, det er ikke meningen at du skal gjøre alle (men du kan hvis du vil!).
             På torsdag 8. desember oppfordrer vi deg til å sende inn svar i Forms-skjemaet vårt (link her) for å kunne bli med i trekning av noe godt. :)
         </p>
@@ -86,7 +86,7 @@ export default function Home() {
     <div className="text-xl">
         Utførte oppgaver: {score}
     </div>
-    { commitState.length != squares.length &&
+    { committedState.length != squares.length &&
     <Button onClick={commitState} 
         className="bg-green-800 hover:bg-green-900 transition-all duration-300 opacity-90 h-24 text-xl self-auto fixed bottom-0 left-0 w-full">
             lagre

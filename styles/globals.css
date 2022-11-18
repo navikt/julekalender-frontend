@@ -4,5 +4,5 @@
 
 
 body {
-  @apply bg-zinc-900 text-white flex flex-col items-center
+  @apply bg-canvas-background-inverted text-white flex flex-col items-center
 }
