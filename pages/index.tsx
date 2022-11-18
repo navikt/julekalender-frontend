@@ -42,12 +42,10 @@ export default function Home() {
     const [score, setScore] = useState<number>(0)
 
     useEffect(() => {
-        // fetch committed state from backend
         const board = load("board-1")
         const parsed: string[] = board ? JSON.parse(board) : []
         setCommittedState(parsed)
         setBoardState(parsed)
-         // put committed state into our "hot" state for easier comparisons later
     }, [])
 
     useEffect(() => {
@@ -88,7 +86,7 @@ export default function Home() {
     <div className="text-xl">
         Utførte oppgaver: {score}
     </div>
-    { boardState.length != squares.length &&
+    { commitState.length != squares.length &&
     <Button onClick={commitState} 
         className="bg-green-800 hover:bg-green-900 transition-all duration-300 opacity-90 h-24 text-xl self-auto fixed bottom-0 left-0 w-full">
             lagre
