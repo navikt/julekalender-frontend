@@ -2,6 +2,7 @@ import { BodyLong, Button, Heading, Modal } from "@navikt/ds-react"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import BoardSquare from "../components/boardSquare"
+import Countdown from "../components/countdown"
 
 const squares = [
     "oppgave en",
@@ -73,7 +74,11 @@ export default function Home() {
         commitState(newState)
     }
 
-    return (<div className="flex flex-col max-w-2xl gap-4 pb-48 p-4">
+    const targetDate = new Date("2022-12-01")
+
+    return (targetDate >= new Date() 
+            ? <Countdown targetDate={new Date("2022-12-01")} />
+            : <div className="flex flex-col max-w-2xl gap-4 pb-48 p-4">    
         <Modal
           open={requestDeletion}
           aria-label="Slett data"
@@ -83,10 +88,10 @@ export default function Home() {
         >
           <Modal.Content>
             <Heading spacing level="1" size="large" id="modal-heading">
-              Slette data
+                Slette data
             </Heading>
             <Heading spacing level="2" size="medium">
-              Er du sikker på at du vil slette data?
+                Er du sikker på at du vil slette data?
             </Heading>
             <BodyLong spacing>
                 Dataen finnes ikke utenfor enheten din. Sletting av data fører kun til at alle oppgaver markeres som ikke fullført.
@@ -117,7 +122,7 @@ export default function Home() {
                             <Heading spacing level="1" size="large" id={`modal-heading-${index}`}>{square}</Heading>
                             <Heading spacing level="2" size="medium">Informasjon om aktiviteten</Heading>
                             <BodyLong spacing>
-                                hallo! dette er info om {square}
+                                Dette er info om {square}
                             </BodyLong>
                             <Button onClick={() => {
                                 performActivity(index.toString())
