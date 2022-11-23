@@ -36,7 +36,6 @@ const Countdown = ({targetDate}: {targetDate: Date}) => {
             <span>{countdown[3]} {countdown[3] == 1 ? 'sekund' : 'sekunder'} til luka åpnes!</span>
         </Heading>
         <div className="px-8 w-full md:max-w-2xl grid gap-2">
-            <Heading level="2" size="medium">Hva er dette?</Heading>
             <p>Julen nærmer seg med stormskritt, og vi kan selvfølgelig ikke gå inn i desember uten vår helt egen julekalender. Vi vet at de neste ukene blir travle for mange. Julegaver skal handles, julebord skal gjennomføres og utallige sammenkomster planlegges. Derfor har vi satt sammen en fullspekket julekalender med aktiviteter som skal få deg gjennom julestria med masse energi og påfyll.</p>
             <p>Uansett om du er supermosjonist eller sofasliter, så har vi tenkt på deg. I kalenderen finner du aktiviteter som er tilpasset de aller fleste, uansett hvilket nivå du måtte befinne deg på.</p>
             <p>Første luke åpner <span className="font-bold hover:glowy transition-all">torsdag 1. desember</span>!</p>
