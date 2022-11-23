@@ -1,4 +1,4 @@
-import { Alert, BodyLong, Button, Heading, Modal } from "@navikt/ds-react"
+import { BodyLong, Button, Heading, Modal } from "@navikt/ds-react"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import BoardSquare from "../components/boardSquare"
@@ -104,7 +104,7 @@ export default function Home() {
         </p>
         <div className="flex flex-row flex-wrap gap-2 py-4 p-2 max-w-xl">
             {squares.map((square, index) => 
-                <div>
+                <div key={`square-${index}`}>
                     <Modal
                         open={openSquare[index]}
                         key={`modal-${index}`}
