@@ -29,11 +29,11 @@ const getReturnValues = (countdown: number) => {
 const Countdown = ({targetDate}: {targetDate: Date}) => {
     const countdown = useCountdown(targetDate)
     return <div className="flex flex-col gap-8 h-screen items-center justify-center">
-        <Heading level="1" size="large">
-            {countdown[0]} {countdown[0] == 1 ? 'dag, ' : 'dager, '}
-            {countdown[1]} {countdown[1] == 1 ? 'time, ' : 'timer, '} 
-            {countdown[2]} {countdown[2] == 1 ? 'minutt og ' : 'minutter og '} 
-            {countdown[3]} {countdown[3] == 1 ? 'sekund' : 'sekunder'} til luka åpnes!
+        <Heading level="1" size="large" className="flex flex-col md:flex-row gap-2">
+            <span>{countdown[0]} {countdown[0] == 1 ? 'dag,' : 'dager, '}</span>
+            <span>{countdown[1]} {countdown[1] == 1 ? 'time,' : 'timer, '}</span> 
+            <span>{countdown[2]} {countdown[2] == 1 ? 'minutt og' : 'minutter og '}</span>
+            <span>{countdown[3]} {countdown[3] == 1 ? 'sekund' : 'sekunder'} til luka åpnes!</span>
         </Heading>
         <div className="px-8 w-full md:max-w-2xl grid gap-2">
             <Heading level="2" size="medium">Hva er dette?</Heading>
