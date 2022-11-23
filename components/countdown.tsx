@@ -37,9 +37,9 @@ const Countdown = ({targetDate}: {targetDate: Date}) => {
         </Heading>
         <div className="px-8 w-full md:max-w-2xl grid gap-2">
             <Heading level="2" size="medium">Hva er dette?</Heading>
-            <p>For å få dagene til å gå litt fortere har vi satt sammen en julekalender med små aktiviteter du kan fylle dagen med. Enten du er supermosjonist eller foretrekker mindre krevende aktiviteter, så vil du finne noe som passer for deg.</p>
-            <p>Hver fredag legger vi ut oppgaver du kan gjennomføre påfølgende uke. Det er både oppgaver med veldig lav terskel for gjennomføring og noen litt mer utfordrende. Du velger selv hvilke og hvor mange oppgaver du gjør. For å delta i trekningen av fine premier må du gjøre minst 7 aktiviteter før neste trekning. Vi trekker tre vinnere hver fredag!</p>
-            <p><span className="font-bold hover:glowy transition-all">Torsdag 1. desember</span> åpnes første luke!</p>
+            <p>Julen nærmer seg med stormskritt, og vi kan selvfølgelig ikke gå inn i desember uten vår helt egen julekalender. Vi vet at de neste ukene blir travle for mange. Julegaver skal handles, julebord skal gjennomføres og utallige sammenkomster planlegges. Derfor har vi satt sammen en fullspekket julekalender med aktiviteter som skal få deg gjennom julestria med masse energi og påfyll.</p>
+            <p>Uansett om du er supermosjonist eller sofasliter, så har vi tenkt på deg. I kalenderen finner du aktiviteter som er tilpasset de aller fleste, uansett hvilket nivå du måtte befinne deg på.</p>
+            <p>Første luke åpner <span className="font-bold hover:glowy transition-all">torsdag 1. desember</span>!</p>
         </div>
     </div>
 }
