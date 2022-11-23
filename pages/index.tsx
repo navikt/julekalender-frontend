@@ -42,9 +42,11 @@ export default function Home() {
     const [boardState, setBoardState] = useState<string[]>([])
     const [committedState, setCommittedState] = useState<string[]>([])
     const [score, setScore] = useState<number>(0)
+    const [openSquare, setOpenSquare] = useState(squares.map(_ => false))
     const [requestDeletion, setRequestDeletion] = useState(false)
 
     useEffect(() => {
+        Modal.setAppElement("#__next");
         const board = load("board-1")
         const parsed: string[] = board ? JSON.parse(board) : []
         setCommittedState(parsed)
@@ -55,24 +57,20 @@ export default function Home() {
         setScore(committedState.length)
     }, [committedState])
 
-    useEffect(() => {
-        Modal.setAppElement("#__next");
-      }, []);
-
     const deleteData = () => {
         window.localStorage.removeItem("board-1")
         router.reload()
     }
 
-    const commitState = () => {
-        save("board-1", JSON.stringify(boardState))
-        setCommittedState(boardState)
+    const commitState = (newState: string[]) => {
+        save("board-1", JSON.stringify(newState))
+        setCommittedState(newState)
     }
 
-    const handleChange = (square: string) => {
-        !boardState.includes(square)
-            ? setBoardState([...boardState, square]) // add square to board
-            : setBoardState(boardState.filter(item => item != square)) // remove square :)
+    const performActivity = (square: string) => {
+        const newState = [...boardState, square]
+        setBoardState(newState) // add square to board
+        commitState(newState)
     }
 
     return (<div className="flex flex-col max-w-2xl gap-4 pb-48 p-4">
@@ -106,14 +104,38 @@ export default function Home() {
         </p>
         <div className="flex flex-row flex-wrap gap-2 py-4 p-2 max-w-xl">
             {squares.map((square, index) => 
-                <BoardSquare 
-                    key={index}
-                    value={square}
-                    index={index}
-                    committed={committedState.includes(index.toString())}
-                    completed={boardState.includes(index.toString())}
-                    onClick={handleChange} 
-                />
+                <div>
+                    <Modal
+                        open={openSquare[index]}
+                        key={`modal-${index}`}
+                        aria-label={`Informasjon om ${square}`}
+                        className="text-text"
+                        onClose={() => setOpenSquare(openSquare.map(() => false))}
+                        aria-labelledby={`modal-heading-${index}`}
+                    >
+                        <Modal.Content>
+                            <Heading spacing level="1" size="large" id={`modal-heading-${index}`}>{square}</Heading>
+                            <Heading spacing level="2" size="medium">Informasjon om aktiviteten</Heading>
+                            <BodyLong spacing>
+                                hallo! dette er info om {square}
+                            </BodyLong>
+                            <Button onClick={() => {
+                                performActivity(index.toString())
+                                setOpenSquare(openSquare.map(() => false))
+                            }}>Fullfør aktivitet</Button>
+                        </Modal.Content>
+
+
+                    </Modal>
+                    <BoardSquare 
+                        key={index}
+                        value={square}
+                        index={index}
+                        committed={committedState.includes(index.toString())}
+                        completed={boardState.includes(index.toString())}
+                        onClick={() => setOpenSquare(openSquare.map((_, i) => index == i))} 
+                    />
+                </div>
             )}
         
     </div>
@@ -125,11 +147,5 @@ export default function Home() {
             Slett data
         </Button>
     </div>
-    { committedState.length != squares.length &&
-    <Button onClick={commitState} 
-        className="bg-green-800 hover:bg-green-900 transition-all duration-300 opacity-90 h-24 text-xl self-auto fixed bottom-0 left-0 w-full">
-            lagre
-    </Button>
-    }
     </div>)
 }
