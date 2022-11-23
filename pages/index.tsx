@@ -1,4 +1,5 @@
-import { Alert, Button, Heading } from "@navikt/ds-react"
+import { Alert, BodyLong, Button, Heading, Modal } from "@navikt/ds-react"
+import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import BoardSquare from "../components/boardSquare"
 
@@ -36,10 +37,12 @@ const save = (key: string, value: string) => {
     
 
 export default function Home() {
+    const router = useRouter()
 
     const [boardState, setBoardState] = useState<string[]>([])
     const [committedState, setCommittedState] = useState<string[]>([])
     const [score, setScore] = useState<number>(0)
+    const [requestDeletion, setRequestDeletion] = useState(false)
 
     useEffect(() => {
         const board = load("board-1")
@@ -52,6 +55,14 @@ export default function Home() {
         setScore(committedState.length)
     }, [committedState])
 
+    useEffect(() => {
+        Modal.setAppElement("#__next");
+      }, []);
+
+    const deleteData = () => {
+        window.localStorage.removeItem("board-1")
+        router.reload()
+    }
 
     const commitState = () => {
         save("board-1", JSON.stringify(boardState))
@@ -65,6 +76,29 @@ export default function Home() {
     }
 
     return (<div className="flex flex-col max-w-2xl gap-4 pb-48 p-4">
+        <Modal
+          open={requestDeletion}
+          aria-label="Slett data"
+          className="text-text"
+          onClose={() => setRequestDeletion((x) => !x)}
+          aria-labelledby="modal-heading"
+        >
+          <Modal.Content>
+            <Heading spacing level="1" size="large" id="modal-heading">
+              Slette data
+            </Heading>
+            <Heading spacing level="2" size="medium">
+              Er du sikker på at du vil slette data?
+            </Heading>
+            <BodyLong spacing>
+                Dataen finnes ikke utenfor enheten din. Sletting av data fører kun til at alle oppgaver markeres som ikke fullført.
+            </BodyLong>
+            <div className="flex gap-2">
+                <Button onClick={() => setRequestDeletion((x) => !x)}>Nei, glem det</Button>
+                <Button onClick={deleteData}>Ja, slett dataen min</Button>
+            </div>
+          </Modal.Content>
+        </Modal>
         <h1 className="text-3xl">Aktivitetskalender (1. desember - 8. desember)</h1>
         <p className="text-text-muted p-2 border-l-2">
             Det er flere oppgaver her enn det er dager i perioden, det er ikke meningen at du skal gjøre alle (men du kan hvis du vil!).
@@ -85,6 +119,11 @@ export default function Home() {
     </div>
     <div className="text-xl">
         Utførte oppgaver: {score}
+    </div>
+    <div>
+        <Button onClick={() => setRequestDeletion(true)}>
+            Slett data
+        </Button>
     </div>
     { committedState.length != squares.length &&
     <Button onClick={commitState} 
