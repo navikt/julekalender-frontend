@@ -3,6 +3,7 @@ import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import BoardSquare from "../components/boardSquare"
 import Countdown from "../components/countdown"
+import Snowflakes from "../components/snowflakes"
 
 const squares = [
     "oppgave en",
@@ -76,8 +77,11 @@ export default function Home() {
 
     const targetDate = new Date("2022-12-01")
 
-    return (targetDate >= new Date() 
-            ? <Countdown targetDate={new Date("2022-12-01")} />
+    return (targetDate >= new Date()
+            ? <div>
+                <Snowflakes flakes={10} />
+                <Countdown targetDate={new Date("2022-12-01")} />
+            </div>
             : <div className="flex flex-col max-w-2xl gap-4 pb-48 p-4">    
         <Modal
           open={requestDeletion}
