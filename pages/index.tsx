@@ -1,55 +1,65 @@
-import { BodyLong, Button, Heading, Modal } from "@navikt/ds-react"
-import { useRouter } from "next/router"
+import { BodyLong, Button, Chat, Heading, Modal } from "@navikt/ds-react"
+import Head from "next/head"
 import { useEffect, useState } from "react"
 import BoardSquare from "../components/boardSquare"
 import Countdown from "../components/countdown"
+import DeleteData from "../components/deleteData"
 import Snowflakes from "../components/snowflakes"
 
 const squares = [
-    "oppgave en",
-    "oppgave to",
-    "oppgave tre",
-    "oppgave fire",
-    "oppgave fem",
-    "oppgave seks",
-    "oppgave syv",
-    "oppgave åtte",
-    "oppgave ni",
-    "oppgave ti (en oppgave med spesielt lang tekst, det kan se rart ut men kanskje ikke?)",
-    "oppgave elleve",
-    "oppgave tolv",
-    "oppgave tretten",
-    "oppgave fjorten",
-    "oppgave femten",
-    "oppgave seksten"
+    { name: "Gå 10 000 skritt på en dag", description: "" },
+    { name: "Gå eller løp 5 km", description: "" },
+    { name: "Gå en tur med en kollega", description: "" },
+    { name: "Gå eller løp antallet km som datoen i dag", description: "Dersom du gjør dette 1. desember trenger du kun å gå eller løpe en kilometer, men dersom du gjør dette 8. desember er distansen 8 kilometer." },
+    { name: "Heis-fri dag", description: "" },
+    { name: "Bli med løpegruppa på tur, mandag", description: "Vi møtes i resepsjonen i 1. etasje i Fyrstikkalleen 1 mandag 5. desember klokken 16:30, for alle nivåer!" },
+    { name: "Øve på å stå på hendene eller hodet", description: "Øv på å stå på hendene eller hodet! Målet er å klare det innen 24. desember. Du har fullført aktiviteten om du har øvd litt." },
+    { name: "Gå av kollektivtransport et stopp for tidlig", description: "Dersom du benytter buss, t-bane eller trikk må du gå av et stopp for tidlig og gå resten for å fullføre denne aktiviteten." },
+    { name: "10 burpies / spensthopp", description: "" },
+    { name: "Dans sammen med noen", description: "" },
+    { name: "Besøk en etasje i FYA1 du ikke har vært i før", description: "" },
+    { name: "Ta trappa opp til takterrassen og trekk litt frisk luft", description: "" },
+    { name: "Kortstokk-økt (en øvelse per farge, spill deg gjennom kortstokken - eller deler av den)", description: "" },
+    { name: "Ta et utendørsbad", description: "" },
+    {
+        name: "Morgenbuldring med klatregruppa, onsdag", description: <Chat avatar="K" name="Klatregruppa" timestamp="07.12.2022 07:00">
+            <Chat.Bubble>Oppmøte 07:00, onsdag 7. desember</Chat.Bubble>
+            <Chat.Bubble>Adresse: Brynsveien 3, Klatreverket Bryn (Buldreverket)</Chat.Bubble>
+            <Chat.Bubble>Pris: 100 kr</Chat.Bubble>
+            <Chat.Bubble>Mulighet for å leie sko</Chat.Bubble>
+            <Chat.Bubble>Plass til alle, både n00b og pr0</Chat.Bubble>
+            <Chat.Bubble>Kaffe :)</Chat.Bubble>
+        </Chat>
+    }
 ]
 
 const load = (key: string): string | null => {
-    if(typeof window !== 'undefined'){
-         return window.localStorage.getItem(key)
+    if (typeof window !== 'undefined') {
+        return window.localStorage.getItem(key)
     }
     return null
 }
 
 const save = (key: string, value: string) => {
-    if(typeof window !== 'undefined'){
-         return window.localStorage.setItem(key,value)
+    if (typeof window !== 'undefined') {
+        return window.localStorage.setItem(key, value)
     }
 }
-    
+
 
 export default function Home() {
-    const router = useRouter()
 
     const [boardState, setBoardState] = useState<string[]>([])
     const [committedState, setCommittedState] = useState<string[]>([])
     const [score, setScore] = useState<number>(0)
     const [openSquare, setOpenSquare] = useState(squares.map(_ => false))
-    const [requestDeletion, setRequestDeletion] = useState(false)
+
+    const boards = ["board-1"]
+    const currentBoard = boards.slice(-1)[0]
 
     useEffect(() => {
         Modal.setAppElement("#__next");
-        const board = load("board-1")
+        const board = load(currentBoard)
         const parsed: string[] = board ? JSON.parse(board) : []
         setCommittedState(parsed)
         setBoardState(parsed)
@@ -59,13 +69,10 @@ export default function Home() {
         setScore(committedState.length)
     }, [committedState])
 
-    const deleteData = () => {
-        window.localStorage.removeItem("board-1")
-        router.reload()
-    }
+
 
     const commitState = (newState: string[]) => {
-        save("board-1", JSON.stringify(newState))
+        save(currentBoard, JSON.stringify(newState))
         setCommittedState(newState)
     }
 
@@ -77,84 +84,62 @@ export default function Home() {
 
     const targetDate = new Date("2022-12-01")
 
-    return (targetDate >= new Date()
-            ? <div>
-                <Snowflakes flakes={10} />
-                <Countdown targetDate={new Date("2022-12-01")} />
-            </div>
-            : <div className="flex flex-col max-w-2xl gap-4 pb-48 p-4">    
-        <Modal
-          open={requestDeletion}
-          aria-label="Slett data"
-          className="text-text"
-          onClose={() => setRequestDeletion((x) => !x)}
-          aria-labelledby="modal-heading"
-        >
-          <Modal.Content>
-            <Heading spacing level="1" size="large" id="modal-heading">
-                Slette data
-            </Heading>
-            <Heading spacing level="2" size="medium">
-                Er du sikker på at du vil slette data?
-            </Heading>
-            <BodyLong spacing>
-                Dataen finnes ikke utenfor enheten din. Sletting av data fører kun til at alle oppgaver markeres som ikke fullført.
-            </BodyLong>
-            <div className="flex gap-2">
-                <Button onClick={() => setRequestDeletion((x) => !x)}>Nei, glem det</Button>
-                <Button onClick={deleteData}>Ja, slett dataen min</Button>
-            </div>
-          </Modal.Content>
-        </Modal>
-        <h1 className="text-3xl">Aktivitetskalender (1. desember - 8. desember)</h1>
-        <p className="text-text-muted p-2 border-l-2">
-            Det er flere oppgaver her enn det er dager i perioden, det er ikke meningen at du skal gjøre alle (men du kan hvis du vil!).
-            På torsdag 8. desember oppfordrer vi deg til å sende inn svar i Forms-skjemaet vårt (link her) for å kunne bli med i trekning av noe godt. :)
-        </p>
-        <div className="flex flex-row flex-wrap gap-2 py-4 p-2 max-w-xl">
-            {squares.map((square, index) => 
-                <div key={`square-${index}`}>
-                    <Modal
-                        open={openSquare[index]}
-                        key={`modal-${index}`}
-                        aria-label={`Informasjon om ${square}`}
-                        className="text-text"
-                        onClose={() => setOpenSquare(openSquare.map(() => false))}
-                        aria-labelledby={`modal-heading-${index}`}
-                    >
-                        <Modal.Content>
-                            <Heading spacing level="1" size="large" id={`modal-heading-${index}`}>{square}</Heading>
-                            <Heading spacing level="2" size="medium">Informasjon om aktiviteten</Heading>
-                            <BodyLong spacing>
-                                Dette er info om {square}
-                            </BodyLong>
-                            <Button onClick={() => {
-                                performActivity(index.toString())
-                                setOpenSquare(openSquare.map(() => false))
-                            }}>Fullfør aktivitet</Button>
-                        </Modal.Content>
+    return (<div>
+        <Head>
+            <title>Juleaktivitetskalender!</title>
+            <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+            <link rel="shortcut icon" href="/julekule-tilted.png" />
+        </Head>
+        <Snowflakes flakes={10} />
+        {targetDate >= new Date()
+            ? <Countdown targetDate={new Date("2022-12-01")} />
+            : <div className="min-h-screen flex items-center justify-center">
+                <div className="flex flex-col max-w-2xl gap-4 pb-48 p-4">
+
+                    <h1 className="text-3xl">Aktivitetskalender (1. desember - 8. desember)</h1>
+                    <p className="p-2 border-l-2 border-nav-red">
+                        Lorem ipsum
+                    </p>
+                    <div className="flex flex-row flex-wrap gap-2 py-4 p-2 max-w-xl">
+                        {squares.map(({ name, description }, index) =>
+                            <div key={`square-${index}`}>
+                                <Modal
+                                    open={openSquare[index]}
+                                    key={`modal-${index}`}
+                                    aria-label={`Informasjon om ${name}`}
+                                    className="text-text max-w-[32rem] pr-10 pb-12 md:pb-0"
+                                    onClose={() => setOpenSquare(openSquare.map(() => false))}
+                                    aria-labelledby={`modal-heading-${index}`}
+                                >
+                                    <Modal.Content>
+                                        <Heading spacing level="1" size="large" id={`modal-heading-${index}`}>{name}</Heading>
+                                        <BodyLong spacing>
+                                            {description}
+                                        </BodyLong>
+                                        <Button onClick={() => {
+                                            performActivity(index.toString())
+                                            setOpenSquare(openSquare.map(() => false))
+                                        }}>Fullfør aktivitet</Button>
+                                    </Modal.Content>
 
 
-                    </Modal>
-                    <BoardSquare 
-                        key={index}
-                        value={square}
-                        index={index}
-                        committed={committedState.includes(index.toString())}
-                        completed={boardState.includes(index.toString())}
-                        onClick={() => setOpenSquare(openSquare.map((_, i) => index == i))} 
-                    />
+                                </Modal>
+                                <BoardSquare
+                                    key={index}
+                                    value={name}
+                                    index={index}
+                                    committed={committedState.includes(index.toString())}
+                                    completed={boardState.includes(index.toString())}
+                                    onClick={() => setOpenSquare(openSquare.map((_, i) => index == i))}
+                                />
+                            </div>)}
+
+                    </div>
+                    <div className="text-xl">
+                        Utførte oppgaver: {score}
+                    </div>
+                    <DeleteData items={boards} className="place-self-end" />
                 </div>
-            )}
-        
-    </div>
-    <div className="text-xl">
-        Utførte oppgaver: {score}
-    </div>
-    <div>
-        <Button onClick={() => setRequestDeletion(true)}>
-            Slett data
-        </Button>
-    </div>
+            </div>}
     </div>)
 }
