@@ -4,7 +4,21 @@ import { useEffect, useState } from "react"
 import BoardSquare from "../components/boardSquare"
 import Countdown from "../components/countdown"
 import DeleteData from "../components/deleteData"
+import Intro from "../components/intro"
 import Snowflakes from "../components/snowflakes"
+import { useLocalStorage } from "../components/useLocalStorage"
+
+
+const offset = (num: number, i: number) =>
+  parseInt(num.toString().charAt(i % num.toString().length));
+
+const scramble = (st: string, sa: number, d: number = 1) =>
+  st
+    .split("")
+    .map((c, i) => String.fromCharCode(c.charCodeAt(0) + offset(sa, i) * d))
+    .join("");
+
+const unscramble = (str: string, salt: number) => scramble(str, salt, -1);
 
 const squares = [
     { name: "Gå 10 000 skritt på en dag", description: "" },
@@ -30,21 +44,11 @@ const squares = [
             <Chat.Bubble>Plass til alle, både n00b og pr0</Chat.Bubble>
             <Chat.Bubble>Kaffe :)</Chat.Bubble>
         </Chat>
+    },
+    {
+        name: "Mensendieck, torsdag", description: `Skjer i Smeltedigelen i FYA1, alle har en gratis prøvetime. Husk treningstøy og sko til innebruk. Gi gjerne beskjed om at du kommer til ${unscramble("uru|oq1kpqyplCqhw1qv", 1337)}`,
     }
 ]
-
-const load = (key: string): string | null => {
-    if (typeof window !== 'undefined') {
-        return window.localStorage.getItem(key)
-    }
-    return null
-}
-
-const save = (key: string, value: string) => {
-    if (typeof window !== 'undefined') {
-        return window.localStorage.setItem(key, value)
-    }
-}
 
 
 export default function Home() {
@@ -53,9 +57,12 @@ export default function Home() {
     const [committedState, setCommittedState] = useState<string[]>([])
     const [score, setScore] = useState<number>(0)
     const [openSquare, setOpenSquare] = useState(squares.map(_ => false))
-
+    const [save, load] = useLocalStorage()
+    
     const boards = ["board-1"]
+    const introState = "intros"
     const currentBoard = boards.slice(-1)[0]
+
 
     useEffect(() => {
         Modal.setAppElement("#__next");
@@ -68,7 +75,6 @@ export default function Home() {
     useEffect(() => {
         setScore(committedState.length)
     }, [committedState])
-
 
 
     const commitState = (newState: string[]) => {
@@ -94,6 +100,7 @@ export default function Home() {
         {targetDate >= new Date()
             ? <Countdown targetDate={new Date("2022-12-01")} />
             : <div className="min-h-screen flex items-center justify-center">
+                <Intro currentBoard={currentBoard} />
                 <div className="flex flex-col max-w-2xl gap-4 pb-48 p-4">
 
                     <h1 className="text-3xl">Aktivitetskalender (1. desember - 8. desember)</h1>
@@ -121,8 +128,6 @@ export default function Home() {
                                             setOpenSquare(openSquare.map(() => false))
                                         }}>Fullfør aktivitet</Button>
                                     </Modal.Content>
-
-
                                 </Modal>
                                 <BoardSquare
                                     key={index}
@@ -138,7 +143,7 @@ export default function Home() {
                     <div className="text-xl">
                         Utførte oppgaver: {score}
                     </div>
-                    <DeleteData items={boards} className="place-self-end" />
+                    <DeleteData items={[...boards, introState]} className="place-self-end" />
                 </div>
             </div>}
     </div>)
