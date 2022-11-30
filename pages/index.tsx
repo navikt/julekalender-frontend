@@ -46,12 +46,18 @@ const squares = [
   {
     name: "Gå eller løp antallet km som datoen i dag",
     description:
-      "Dersom du gjør dette 1. desember trenger du kun å gå eller løpe en kilometer, men dersom du gjør dette 8. desember er distansen 8 kilometer. God tur!",
+      "Dersom du gjør dette 1. desember trenger du kun å gå eller løpe en kilometer, men dersom du gjør dette 8. desember er distansen 8 kilometer. God tur! PS: Dette er en av to identiske oppgaver.",
+  },
+
+  { name: "Dans sammen med noen", description: "Ta deg en svingom!" },
+  {
+    name: "Besøk en etasje i FYA1 du ikke har vært i før",
+    description: "Har du vært i alle?  Velg den som er lengst unna deg nå!",
   },
   {
     name: "Gå eller løp antallet km som datoen i dag",
     description:
-      "Dersom du gjør dette 1. desember trenger du kun å gå eller løpe en kilometer, men dersom du gjør dette 8. desember er distansen 8 kilometer. God tur!",
+      "Dersom du gjør dette 1. desember trenger du kun å gå eller løpe en kilometer, men dersom du gjør dette 8. desember er distansen 8 kilometer. God tur! PS: Dette er en av to identiske oppgaver.",
   },
   {
     name: "Gå en morgentur",
@@ -69,12 +75,6 @@ const squares = [
         </a>
       </p>
     ),
-  },
-
-  { name: "Dans sammen med noen", description: "Ta deg en svingom!" },
-  {
-    name: "Besøk en etasje i FYA1 du ikke har vært i før",
-    description: "Har du vært i alle?  Velg den som er lengst unna deg nå!",
   },
 
   {
