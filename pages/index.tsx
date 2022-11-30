@@ -132,7 +132,7 @@ const squares = [
         </p>
         <p>
           Eksempel på ei intervalløkt er å springe ti gonger 60 sekund raskt med
-          30 sekund kvile mellom kvart "drag" for deretter å ha ein 4 minutts
+          30 sekund kvile mellom kvart &ldquo;drag&rdquo; for deretter å ha ein 4 minutts
           pause for så å gjenta det heile ein gong til. Du skal klarer å halda
           farta oppe på alle drag inkluderte det siste.
         </p>
@@ -195,87 +195,87 @@ export default function Home() {
         <link rel="shortcut icon" href="/julekule-tilted.png" />
       </Head>
       <Snowflakes flakes={10} />
-        <div className="min-h-screen flex items-center justify-center">
-          <Intro currentBoard={currentBoard} />
-          <div className="flex flex-col max-w-2xl gap-4 pb-48 p-4">
-            <h1 className="text-3xl">
-              Aktivitetskalender (1. desember - 8. desember)
-            </h1>
-            <div className="p-2 border-l-2 border-nav-red flex flex-col gap-2">
-              <p>
-                Julen nærmer seg med stormskritt, og mange kjenner kanskje
-                skuldrene nærme seg ørene. Da kan det være fint med noen
-                aktiviteter som kan løsne litt på både kropp og sinn.
-              </p>
-              <p>
-                I aktivitetsjulekalender finner du aktiviteter som kan få deg
-                gjennom julestria med masse energi og påfyll. Det spiller ingen
-                rolle om du er sofasliter, supermosjonist eller sånn passe
-                energisk, det er noe for alle her.
-              </p>
-              <Heading size="medium" level="2">
-                Slik blir du med i trekningen
-              </Heading>
-              <p>
-                For å delta i trekningene må du{" "}
-                <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=NGU2YsMeYkmIaZtVNSedC7UZM7Z2a_tDhAO6kE2Ce0dUOTExT1Y3MTA1VFpTMlNPOElHVlpMWjNJSS4u">
-                  fylle ut dette skjemaet
-                </a>{" "}
-                i løpet av torsdag 8. desember. Vinnerne trekkes fredags morgen
-                og blir kontaktet direkte.
-              </p>
-            </div>
-            <div className="flex flex-row flex-wrap gap-2 py-4 p-2 max-w-xl">
-              {squares.map(({ name, description }, index) => (
-                <div key={`square-${index}`}>
-                  <Modal
-                    open={openSquare[index]}
-                    key={`modal-${index}`}
-                    aria-label={`Informasjon om ${name}`}
-                    className="text-text max-w-[32rem] pr-10 pb-12 md:pb-0"
-                    onClose={() => setOpenSquare(openSquare.map(() => false))}
-                    aria-labelledby={`modal-heading-${index}`}
-                  >
-                    <Modal.Content>
-                      <Heading
-                        spacing
-                        level="1"
-                        size="large"
-                        id={`modal-heading-${index}`}
-                      >
-                        {name}
-                      </Heading>
-                      <BodyLong spacing>{description}</BodyLong>
-                      <Button
-                        onClick={() => {
-                          performActivity(index.toString());
-                          setOpenSquare(openSquare.map(() => false));
-                        }}
-                      >
-                        Fullfør aktivitet
-                      </Button>
-                    </Modal.Content>
-                  </Modal>
-                  <BoardSquare
-                    key={index}
-                    value={name}
-                    index={index}
-                    committed={committedState.includes(index.toString())}
-                    completed={boardState.includes(index.toString())}
-                    onClick={() =>
-                      setOpenSquare(openSquare.map((_, i) => index == i))
-                    }
-                  />
-                </div>
-              ))}
-            </div>
-            <div className="text-xl">Utførte oppgaver: {score}</div>
-            <DeleteData
-              items={[...boards, introState]}
-              className="place-self-end"
-            />
+      <div className="min-h-screen flex items-center justify-center">
+        <Intro currentBoard={currentBoard} />
+        <div className="flex flex-col max-w-2xl gap-4 pb-48 p-4">
+          <h1 className="text-3xl">
+            Aktivitetskalender (1. desember - 8. desember)
+          </h1>
+          <div className="p-2 border-l-2 border-nav-red flex flex-col gap-2">
+            <p>
+              Julen nærmer seg med stormskritt, og mange kjenner kanskje
+              skuldrene nærme seg ørene. Da kan det være fint med noen
+              aktiviteter som kan løsne litt på både kropp og sinn.
+            </p>
+            <p>
+              I aktivitetsjulekalender finner du aktiviteter som kan få deg
+              gjennom julestria med masse energi og påfyll. Det spiller ingen
+              rolle om du er sofasliter, supermosjonist eller sånn passe
+              energisk, det er noe for alle her.
+            </p>
+            <Heading size="medium" level="2">
+              Slik blir du med i trekningen
+            </Heading>
+            <p>
+              For å delta i trekningene må du{" "}
+              <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=NGU2YsMeYkmIaZtVNSedC7UZM7Z2a_tDhAO6kE2Ce0dUOTExT1Y3MTA1VFpTMlNPOElHVlpMWjNJSS4u">
+                fylle ut dette skjemaet
+              </a>{" "}
+              i løpet av torsdag 8. desember. Vinnerne trekkes fredags morgen og
+              blir kontaktet direkte.
+            </p>
           </div>
+          <div className="flex flex-row flex-wrap gap-2 py-4 p-2 max-w-xl">
+            {squares.map(({ name, description }, index) => (
+              <div key={`square-${index}`}>
+                <Modal
+                  open={openSquare[index]}
+                  key={`modal-${index}`}
+                  aria-label={`Informasjon om ${name}`}
+                  className="text-text max-w-[32rem] pr-10 pb-12 md:pb-0"
+                  onClose={() => setOpenSquare(openSquare.map(() => false))}
+                  aria-labelledby={`modal-heading-${index}`}
+                >
+                  <Modal.Content>
+                    <Heading
+                      spacing
+                      level="1"
+                      size="large"
+                      id={`modal-heading-${index}`}
+                    >
+                      {name}
+                    </Heading>
+                    <BodyLong spacing>{description}</BodyLong>
+                    <Button
+                      onClick={() => {
+                        performActivity(index.toString());
+                        setOpenSquare(openSquare.map(() => false));
+                      }}
+                    >
+                      Fullfør aktivitet
+                    </Button>
+                  </Modal.Content>
+                </Modal>
+                <BoardSquare
+                  key={index}
+                  value={name}
+                  index={index}
+                  committed={committedState.includes(index.toString())}
+                  completed={boardState.includes(index.toString())}
+                  onClick={() =>
+                    setOpenSquare(openSquare.map((_, i) => index == i))
+                  }
+                />
+              </div>
+            ))}
+          </div>
+          <div className="text-xl">Utførte oppgaver: {score}</div>
+          <DeleteData
+            items={[...boards, introState]}
+            className="place-self-end"
+          />
         </div>
+      </div>
     </div>
   );
 }

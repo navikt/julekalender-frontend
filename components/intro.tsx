@@ -54,8 +54,8 @@ const Intro = ({ currentBoard }: { currentBoard: string }) => {
           Slik holder du oversikt over dine fullførte aktiviteter
         </Heading>
         <p>
-          Trykk på aktiviteten du er interessert i og deretter velg "Fullfør
-          aktivitet". Fullførte aktiviteter er markerte som grå, og du kan se
+          Trykk på aktiviteten du er interessert i og deretter velg &ldquo;Fullfør
+          aktivitet&rdquo;. Fullførte aktiviteter er markerte som grå, og du kan se
           hvor mange du har fullført på bunnen av siden. Inne i hver aktivitet
           vises det ofte mer informasjon som kan være nyttig, og du kan lese de
           uten å fullføre aktiviteten. Aktivitetskalenderen er selvfølgelig 100%
