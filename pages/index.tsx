@@ -2,7 +2,6 @@ import { BodyLong, Button, Chat, Heading, Modal } from "@navikt/ds-react";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import BoardSquare from "../components/boardSquare";
-import Countdown from "../components/countdown";
 import DeleteData from "../components/deleteData";
 import Intro from "../components/intro";
 import Snowflakes from "../components/snowflakes";
@@ -188,8 +187,6 @@ export default function Home() {
     commitState(newState);
   };
 
-  const targetDate = new Date("2022-12-01");
-
   return (
     <div>
       <Head>
@@ -198,9 +195,6 @@ export default function Home() {
         <link rel="shortcut icon" href="/julekule-tilted.png" />
       </Head>
       <Snowflakes flakes={10} />
-      {targetDate >= new Date() ? (
-        <Countdown targetDate={new Date("2022-12-01")} />
-      ) : (
         <div className="min-h-screen flex items-center justify-center">
           <Intro currentBoard={currentBoard} />
           <div className="flex flex-col max-w-2xl gap-4 pb-48 p-4">
@@ -282,7 +276,6 @@ export default function Home() {
             />
           </div>
         </div>
-      )}
     </div>
   );
 }
