@@ -98,7 +98,7 @@ const squares = [
         Skjer i Smeltedigelen i FYA1 på <b>tirsdag 6. desember, 16:30–⁠17:30</b>
         . Alle har en gratis prøvetime. Husk komfortable klær du kan bevege deg
         fritt i og varm genser og sokker til avspenningen. Gi gjerne beskjed om
-        at du kommer til ${unscramble("udm5ixo{ndurAqd}/qr", 1337)}
+        at du kommer til {unscramble("udm5ixo{ndurAqd}/qr", 1337)}
       </p>
     ),
   },
@@ -146,8 +146,7 @@ const squares = [
       <p>
         Skjer i Smeltedigelen i FYA1 på <b>torsdag 8. desember, 16:30–⁠17:30</b>
         . Alle har en gratis prøvetime. Husk treningstøy og sko til innebruk. Gi
-        gjerne beskjed om at du kommer til $
-        {unscramble("uru|oq1kpqyplCqhw1qv", 1337)}
+        gjerne beskjed om at du kommer til {unscramble("uru|oq1kpqyplCqhw1qv", 1337)}
       </p>
     ),
   },
