@@ -120,22 +120,31 @@ const squares = [
     ),
   },
   {
-    name: "Go-morgon med feittforbrenningsgaranti og auka kondisjon, torsdag",
+    name: "Go-morgon med feittforbrenningsgaranti, torsdag",
     description: (
       <div className="flex flex-col gap-2">
         <p>Frode Lein tek oss med på intervalltrening!</p>
         <p>
-          Oppmøte ved hovudinngangen til FYA1 ferdig påkledd klar for trening
-          ute, <b>torsdag 8. desember, 07:00–08:00</b>. Vi starter med femten
-          minutt roleg oppvarming og deretter intervall der vi samlast i
-          pausane.
+          Oppmøte ved hovudinngangen til FYA1 ferdig påkledd klar for løpetrening ute, <b>torsdag 8. desember, 07:00–08:00</b>. 
+          Vi starter med femten minutt roleg oppvarming og deretter intervall der vi samlast i pausane.
         </p>
         <p>
-          Eksempel på ei intervalløkt er å springe ti gonger 60 sekund raskt med
-          30 sekund kvile mellom kvart &ldquo;drag&rdquo; for deretter å ha ein 4 minutts
-          pause for så å gjenta det heile ein gong til. Du skal klarer å halda
-          farta oppe på alle drag inkluderte det siste.
+          Intervalløkt den 8. desember vil vere:
         </p>
+        <ul className="list-disc pl-4">
+          <li>Oppvarming (15 minutt)</li>
+          <li>Springe raskt (4 minutt)</li>
+          <li>Pause (2 minutt)</li>
+          <li>Springe 4 gonger, 45 sekund raskt med 15 sekund kvile mellom kvart &ldquo;drag&rdquo; (totalt 4 minutt)</li>
+          <li>Pause (2 minutt)</li>
+          <li>Springe raskt (4 minutt)</li>
+          <li>Pause (2 minutt)</li>
+          <li>Springe 4 gonger, 45 sekund raskt med 15 sekund kvile mellom kvart &ldquo;drag&rdquo; (totalt 4 minutt)</li>
+          <li>Pause (2 minutt)</li>
+          <li>Springe raskt (4 minutt)</li>
+          <li>Nedvarming (15 minutt)</li>
+        </ul>
+        <p>Ikkje start for hardt. Du skal klare å halda farta oppe på alle drag inkludert det siste. Dette er ein effektiv treningsform som aukar både uthald og kaloriforbruk. I tillegg forbrenn du meir feitt og reduserer risikoen for mange kroniske sjukdommar.</p>
       </div>
     ),
   },
