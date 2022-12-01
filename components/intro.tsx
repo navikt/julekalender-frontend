@@ -1,4 +1,4 @@
-import { Heading, Modal } from "@navikt/ds-react";
+import { Button, Heading, Modal } from "@navikt/ds-react";
 import { useEffect, useState } from "react";
 import { useLocalStorage } from "./useLocalStorage";
 
@@ -78,6 +78,7 @@ const Intro = ({ currentBoard }: { currentBoard: string }) => {
           i løpet av torsdag. Vinnerne trekkes fredags morgen og blir kontaktet
           direkte.
         </p>
+        <Button onClick={seeIntro}>Skjønner!</Button>
       </Modal.Content>
     </Modal>
   );
