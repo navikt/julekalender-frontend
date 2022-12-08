@@ -27,7 +27,7 @@ const squares = [
   {
     name: "Gå eller løp antallet km som datoen i dag",
     description:
-      "Dersom du gjør dette 1. desember trenger du kun å gå eller løpe en kilometer, men dersom du gjør dette 8. desember er distansen 8 kilometer. God tur!",
+      "Dersom du gjør dette 9. desember trenger du altså å gå eller løpe 9 kilometer for å kunne fullføre denne aktiviteten. God tur!",
   },
   { name: "Heis-fri dag", description: "Spar strøm og bli venn med trappa!" },
   {
@@ -41,7 +41,7 @@ const squares = [
   { name: "10 kilometer til fots", description: "Heia heia!" },  
   {
     name: "10 burpies eller spensthopp",
-    description: ""
+    description: "Du velger hvilken du vil gjøre selv!"
   },
   {
     name: "Gå eller løp ei rute du aldri har gjort før",
