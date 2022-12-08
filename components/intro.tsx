@@ -12,7 +12,7 @@ const Intro = ({ currentBoard }: { currentBoard: string }) => {
     const parsedStates =
       introStates?.length !== undefined && introStates?.length > 0
         ? JSON.parse(introStates)
-        : { "board-1": false };
+        : { "board-1": false, "board-2": false, "board-3": false };
     setIntroStates(parsedStates);
   }, []);
 
@@ -32,7 +32,7 @@ const Intro = ({ currentBoard }: { currentBoard: string }) => {
     >
       <Modal.Content className="flex flex-col gap-2">
         <Heading size="large" level="1">
-          Velkommen til første luke!
+          Velkommen til andre luke!
         </Heading>
         <p>
           Uansett om du er supermosjonist eller sofasliter, så har vi tenkt på
@@ -47,8 +47,7 @@ const Intro = ({ currentBoard }: { currentBoard: string }) => {
           kalenderen den påfølgende uken. Du velger selv hvilke og hvor mange
           aktiviteter du gjennomfører, men for å være med i trekningen av fine
           premier må du gjennomføre minst 7 aktiviteter før neste trekning. Vi
-          trekker 3 vinnere hver fredag, og første luke åpnes selvsagt torsdag
-          1. desember.
+          trekker 3 vinnere hver fredag.
         </p>
         <Heading size="medium" level="2">
           Slik holder du oversikt over dine fullførte aktiviteter
