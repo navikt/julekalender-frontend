@@ -79,15 +79,19 @@ const squares = [
     ),
   },
   {
-    name: "Rolig yoga, tirsdag",
+    name: "Rolig yoga, tirsdag (avlyst)",
     description: (
-      <p>
-        Skjer i Smeltedigelen i FYA1 på <b>tirsdag 13. desember, 16:30–⁠17:30</b>
-        . Alle har en gratis prøvetime. Husk komfortable klær du kan bevege deg
-        fritt i og varm genser og sokker til avspenningen. Gi gjerne beskjed om
-        at du kommer til {unscramble("udm5ixo{ndurAqd}/qr", 1337)}
-      </p>
+      <div className="flex flex-col gap-2">
+        <p>
+          Skjer i Smeltedigelen i FYA1 på <b>tirsdag 13. desember, 16:30–⁠17:30</b>
+          . Alle har en gratis prøvetime. Husk komfortable klær du kan bevege deg
+          fritt i og varm genser og sokker til avspenningen. Gi gjerne beskjed om
+          at du kommer til {unscramble("udm5ixo{ndurAqd}/qr", 1337)}
+        </p>
+        <b>Avlyst på grunn av sykdom :(</b>
+      </div>
     ),
+    cancelled: true,
   },
   {
     name: "Go-morgon med fettforbrenningsgaranti, torsdag",
@@ -198,7 +202,7 @@ export default function Home() {
             </p>
           </div>
           <div className="flex flex-row flex-wrap gap-2 py-4 p-2 max-w-xl">
-            {squares.map(({ name, description }, index) => (
+            {squares.map(({ name, description, cancelled }, index) => (
               <div key={`square-${index}`}>
                 <Modal
                   open={openSquare[index]}
@@ -218,6 +222,7 @@ export default function Home() {
                       {name}
                     </Heading>
                     <BodyLong spacing>{description}</BodyLong>
+                    {!(cancelled !== undefined && cancelled) &&
                     <Button
                       onClick={() => {
                         performActivity(index.toString());
@@ -226,6 +231,7 @@ export default function Home() {
                     >
                       Fullfør aktivitet
                     </Button>
+                    }
                   </Modal.Content>
                 </Modal>
                 <BoardSquare
