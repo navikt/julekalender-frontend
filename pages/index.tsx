@@ -57,11 +57,14 @@ const squares = [
   },
 
   {
-    name: "Bli med på morgenmeditasjon, mandag",
+    name: "Bli med på morgenmeditasjon, onsdag",
     description: (
-      <p>
-        Vi møtes i B110 Svovelstikken i Fyrstikkaleen 1, <b>mandag 12. desember klokken 08:45</b>. Varighet: 5 minutter!
-      </p>
+      <div className="flex flex-col gap-2">
+        <p>
+          Vi møtes i B110 Svovelstikken i Fyrstikkalleen 1, <b>onsdag 14. desember klokken 08:45</b>. Varighet: 5 minutter!
+        </p>
+        <p>(Denne var ment å være på mandag 12., men måtte flyttes!)</p>
+      </div>
     )
   },
   {
