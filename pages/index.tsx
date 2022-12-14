@@ -1,4 +1,4 @@
-import { BodyLong, Button, Chat, Heading, Modal } from "@navikt/ds-react";
+import { BodyLong, Button, Heading, Modal } from "@navikt/ds-react";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import BoardSquare from "../components/boardSquare";
@@ -7,125 +7,99 @@ import Intro from "../components/intro";
 import Snowflakes from "../components/snowflakes";
 import { useLocalStorage } from "../components/useLocalStorage";
 
-const offset = (num: number, i: number) =>
-  parseInt(num.toString().charAt(i % num.toString().length));
-
-const scramble = (st: string, sa: number, d: number = 1) =>
-  st
-    .split("")
-    .map((c, i) => String.fromCharCode(c.charCodeAt(0) + offset(sa, i) * d))
-    .join("");
-
-const unscramble = (str: string, salt: number) => scramble(str, salt, -1);
 
 const squares = [
   {
+    name: "Gå eller løp ei rute du aldri har gjort før",
+    description: "God tur!"
+  },
+  {
+    name: "Gå en skitur",
+    description: "Nå har det kommet snø (i Oslo, enn så lenge)!"
+  },
+  {
     name: "Øve på å stå på hendene eller hodet",
     description:
-      "Målet er å klare det innen 24. desember. Du har fullført aktiviteten om du har øvd litt.",
+      "Nå er du i mål!",
   },
   {
-    name: "Gå eller løp antallet km som datoen i dag",
-    description:
-      "Dersom du gjør dette 9. desember trenger du altså å gå eller løpe 9 kilometer for å kunne fullføre denne aktiviteten. God tur!",
+    name: "Gå eller løp sammen med en kollega",
+    description: "Frisk luft er godt for både kropp og sinn!",
   },
   { name: "Heis-fri dag", description: "Spar strøm og bli venn med trappa!" },
+  { name: "15 kilometer til fots", description: "Heia heia!" },
   {
-    name: "10 000 skritt på en dag",
-    description: "Tilsvarer omtrent 8 kilometer, eller ca. 1 time og 40 minutter",
+    name: "Gjør planken lengre enn forrige uke",
+    description: "Dette klarer du!",
   },
-  {
-    name: "Gjør planken så lenge du klarer",
-    description: "Målet er å kunne gjøre det enda lengre neste uke!",
-  },
-  { name: "10 kilometer til fots", description: "Heia heia!" },  
   {
     name: "10 burpies eller spensthopp",
     description: "Du velger hvilken du vil gjøre selv!"
   },
   {
-    name: "Gå eller løp ei rute du aldri har gjort før",
-    description: "God tur!"
+    name: "10 000 skritt på en dag",
+    description: "Tilsvarer omtrent 8 kilometer, eller ca. 1 time og 40 minutter",
   },
   {
     name: "Ta et utendørsbad",
     description: "Hopp i havet! Eller ferskvannet!",
   },
   {
-    name: "Gå eller løp sammen med en kollega",
-    description: "Frisk luft er godt for både kropp og sinn!",
+    name: "Terning-økt",
+    description: <div className="flex flex-col gap-2">
+      <p>Bruk én terning.</p>
+      <p>Kast først for å finne ut hvilken øvelse du skal gjøre</p>
+      <ul className="pl-4">
+        <li>Terningkast 1: pushups</li>
+        <li>Terningkast 2: situps</li>
+        <li>Terningkast 3: knebøy</li>
+        <li>Terningkast 4: spensthopp</li>
+        <li>Terningkast 5: rygghev</li>
+        <li>Terningkast 6: dips</li>
+      </ul>
+      <p>Så kast for å finne ut hvor mange repetisjoner du skal gjøre!</p>
+      <ul className="pl-4">
+        <li>Terningkast 1: 3 reps</li>
+        <li>Terningkast 2: 6 reps</li>
+        <li>Terningkast 3: 9 reps</li>
+        <li>Terningkast 4: 12 reps</li>
+        <li>Terningkast 5: 15 reps</li>
+        <li>Terningkast 6: 18 reps</li>
+      </ul>
+      <p>Gjenta dette 5 ganger, eller så mange ganger du klarer!</p>
+    </div>
   },
-
   {
-    name: "Bli med på morgenmeditasjon, onsdag",
-    description: (
-      <div className="flex flex-col gap-2">
-        <p>
-          Vi møtes i B110 Svovelstikken i Fyrstikkalleen 1, <b>onsdag 14. desember klokken 08:45</b>. Varighet: 5 minutter!
-        </p>
-        <p>(Denne var ment å være på mandag 12., men måtte flyttes!)</p>
-      </div>
-    )
+    name: "Gå eller løp antallet km som datoen i dag",
+    description:
+      "Dersom du gjør dette 16. desember trenger du altså å gå eller løpe 16 kilometer for å kunne fullføre denne aktiviteten. God tur!",
+    cancelled: false,
   },
   {
     name: "Bli med løpegruppa på tur, mandag",
     description: (
       <p>
         Vi møtes i resepsjonen i 1. etasje i Fyrstikkalleen 1,{" "}
-        <b>mandag 12. desember klokken 16:30</b>, for alle nivåer! Bli med i{" "}
+        <b>mandag 19. desember klokken 16:30</b>, for alle nivåer! Bli med i{" "}
         <a href="https://nav-it.slack.com/archives/C02L82FACMN">#fa1-løping</a>{" "}
         på Slack hvis du vil!
       </p>
     ),
   },
   {
-    name: "Rolig yoga, tirsdag (avlyst)",
-    description: (
-      <div className="flex flex-col gap-2">
-        <p>
-          Skjer i Smeltedigelen i FYA1 på <b>tirsdag 13. desember, 16:30–⁠17:30</b>
-          . Alle har en gratis prøvetime. Husk komfortable klær du kan bevege deg
-          fritt i og varm genser og sokker til avspenningen. Gi gjerne beskjed om
-          at du kommer til {unscramble("udm5ixo{ndurAqd}/qr", 1337)}
-        </p>
-        <b>Avlyst på grunn av sykdom :(</b>
-      </div>
-    ),
-    cancelled: true,
-  },
-  {
-    name: "Go-morgon med fettforbrenningsgaranti, torsdag",
-    description: (
-      <div className="flex flex-col gap-2">
-        <p>Frode Lein tek oss med på intervalltrening!</p>
-        <p>
-          Oppmøte ved hovudinngangen til Fyrstikkalleen 1 ferdig påkledd klar for løpetrening ute, <b>torsdag 15. desember, 07:00–08:00</b>. 
-          Vi starter med femten minutt roleg oppvarming og deretter intervall der vi samlast i pausane.
-        </p>
-        <p>
-          Intervalløkt den 15. desember vil vere:
-        </p>
-        <ul className="list-disc pl-4">
-          <li>Oppvarming (15 minutt)</li>
-          <li>Springe raskt 2 gonger 4 minutt med 120 sekund kvile mellom kvart &ldquo;drag&rdquo;</li>
-          <li>Springe raskt 2 gonger 3 minutt med 90 sekund kvile mellom kvart &ldquo;drag&rdquo;</li>
-          <li>Springe raskt 2 gonger 2 minutt med 60 sekund kvile mellom kvart &ldquo;drag&rdquo;</li>
-          <li>Springe raskt 4 gonger 1 minutt med 30 sekund kvile mellom kvart &ldquo;drag&rdquo;</li>
-          <li>Nedvarming (15 minutt)</li>
-        </ul>
-        <p>Ikkje start for hardt. Du skal klare å halda farta oppe på alle drag inkludert det siste. Dette er ein effektiv treningsform som aukar både uthald og kaloriforbruk. I tillegg forbrenn du meir feitt og reduserer risikoen for mange kroniske sjukdommar.</p>
-      </div>
-    )
-  },
-  {
-    name: "Mensendieck, torsdag",
-    description: (
+    name: "Trening med staver, fredag",
+    description: <div className="flex flex-col gap-2">
+      <p>Frode Lein tek oss med på hufsing, løping og gange med staver!</p>
       <p>
-        Skjer i Smeltedigelen i FYA1 på <b>torsdag 15. desember, 16:30–⁠17:30</b>
-        . Alle har en gratis prøvetime. Husk treningstøy og sko til innebruk. Gi
-        gjerne beskjed om at du kommer til {unscramble("uru|oq1kpqyplCqhw1qv", 1337)}
+        Oppmøte ved hovudinngangen til Fyrstikkalleen 1 ferdig påkledd klar for løpetrening ute, <b>fredag 16. desember, kl 08:00</b>. 
       </p>
-    ),
+      <p>
+        Ved bruk av stavene blir pulsen høgare, og kaloriforbrenninga øker fordi musklane i armane aktiveres og brukes til å skyve kroppen framover.
+      </p>
+      <p>
+        Staver bør vere ca. 40 cm kortare enn kroppslengden din. Ta gjerne barnas skistaver. Frode tar med nokre ekstra sett med staver for testing.
+      </p>
+    </div>
   },
 ];
 
@@ -136,7 +110,7 @@ export default function Home() {
   const [openSquare, setOpenSquare] = useState(squares.map((_) => false));
   const [save, load] = useLocalStorage();
 
-  const boards = ["board-1", "board-2"];
+  const boards = ["board-1", "board-2", "board-3"];
   const introState = "intros";
   const currentBoard = boards.slice(-1)[0];
 
@@ -175,7 +149,7 @@ export default function Home() {
         <Intro currentBoard={currentBoard} />
         <div className="flex flex-col max-w-2xl gap-4 pb-48 p-4">
           <h1 className="text-3xl">
-            Aktivitetskalender (9. desember - 15. desember)
+            Aktivitetskalender (16. desember - 22. desember)
           </h1>
           <div className="p-2 border-l-2 border-nav-red flex flex-col gap-2">
             <p>
@@ -197,8 +171,8 @@ export default function Home() {
               <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=NGU2YsMeYkmIaZtVNSedC7UZM7Z2a_tDhAO6kE2Ce0dUOTExT1Y3MTA1VFpTMlNPOElHVlpMWjNJSS4u">
                 fylle ut dette skjemaet
               </a>{" "}
-              i løpet av torsdag 15. desember. Vinnerne trekkes fredags morgen og
-              blir kontaktet direkte.
+              i løpet av torsdag 22. desember. Vinnerne trekkes fredags morgen og
+              blir kontaktet direkte. Så fort du har klart 7 aktiviteter kan du fylle ut skjemaet!
             </p>
           </div>
           <div className="flex flex-row flex-wrap gap-2 py-4 p-2 max-w-xl">
