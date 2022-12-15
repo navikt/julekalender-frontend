@@ -32,7 +32,7 @@ const Intro = ({ currentBoard }: { currentBoard: string }) => {
     >
       <Modal.Content className="flex flex-col gap-2">
         <Heading size="large" level="1">
-          Velkommen til andre luke!
+          Velkommen til tredje og siste luke!
         </Heading>
         <p>
           Uansett om du er supermosjonist eller sofasliter, så har vi tenkt på
