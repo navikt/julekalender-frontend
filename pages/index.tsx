@@ -86,21 +86,6 @@ const squares = [
       </p>
     ),
   },
-  {
-    name: "Trening med staver, fredag",
-    description: <div className="flex flex-col gap-2">
-      <p>Frode Lein tek oss med på hufsing, løping og gange med staver!</p>
-      <p>
-        Oppmøte ved hovudinngangen til Fyrstikkalleen 1 ferdig påkledd klar for løpetrening ute, <b>fredag 16. desember, kl 08:00</b>. 
-      </p>
-      <p>
-        Ved bruk av stavene blir pulsen høgare, og kaloriforbrenninga øker fordi musklane i armane aktiveres og brukes til å skyve kroppen framover.
-      </p>
-      <p>
-        Staver bør vere ca. 40 cm kortare enn kroppslengden din. Ta gjerne barnas skistaver. Frode tar med nokre ekstra sett med staver for testing.
-      </p>
-    </div>
-  },
 ];
 
 export default function Home() {
