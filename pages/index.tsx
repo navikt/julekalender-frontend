@@ -86,6 +86,14 @@ const squares = [
       </p>
     ),
   },
+  {
+    name: "Ta 15 knebøy",
+    description: "Heia heia!",
+  },
+  {
+    name: "Gå til takterrassen",
+    description: "Trekk litt frisk luft. :)"
+  },
 ];
 
 export default function Home() {
